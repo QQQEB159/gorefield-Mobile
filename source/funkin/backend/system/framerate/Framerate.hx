@@ -9,6 +9,7 @@ import openfl.display.Sprite;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.ui.Keyboard;
+import flixel.util.FlxTimer;
 
 class Framerate extends Sprite {
 	public static var instance:Framerate;
