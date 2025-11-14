@@ -10,6 +10,15 @@ import funkin.backend.system.Conductor;
 import funkin.backend.system.Controls;
 import funkin.options.PlayerSettings;
 import flixel.FlxSubState;
+#if TOUCH_CONTROLS
+import mobile.funkin.backend.utils.MobileData;
+import mobile.objects.Hitbox;
+import mobile.objects.TouchPad;
+import mobile.objects.MobileControls;
+import mobile.objects.IMobileControls;
+import flixel.FlxCamera;
+import flixel.util.FlxDestroyUtil;
+#end
 
 class MusicBeatSubstate extends FlxSubState implements IBeatReceiver
 {
@@ -91,7 +100,124 @@ class MusicBeatSubstate extends FlxSubState implements IBeatReceiver
 	inline function get_controlsP2():Controls
 		return PlayerSettings.player2.controls;
 
+    #if TOUCH_CONTROLS
+	public var touchPad:TouchPad;
+	public var hitbox:Hitbox;
+	public var hboxCam:FlxCamera;
+	public var tpadCam:FlxCamera;
+	public var mobileControls:IMobileControls;
+	public var mobileControlsCam:FlxCamera;
+	#end
 
+	public function addTouchPad(DPad:String, Action:String)
+	{
+		#if TOUCH_CONTROLS
+		touchPad = new TouchPad(DPad, Action);
+		add(touchPad);
+		#end
+	}
+
+	public function removeTouchPad()
+	{
+		#if TOUCH_CONTROLS
+		if (touchPad != null)
+		{
+			remove(touchPad);
+			touchPad = FlxDestroyUtil.destroy(touchPad);
+		}
+
+		if(tpadCam != null)
+		{
+			FlxG.cameras.remove(tpadCam);
+			tpadCam = FlxDestroyUtil.destroy(tpadCam);
+		}
+		#end
+	}
+
+	public function addHitbox(?defaultDrawTarget:Bool = false) {
+		#if TOUCH_CONTROLS
+		hitbox = new Hitbox();
+
+		hboxCam = new FlxCamera();
+		hboxCam.bgColor.alpha = 0;
+		FlxG.cameras.add(hboxCam, defaultDrawTarget);
+
+		hitbox.cameras = [hboxCam];
+		hitbox.visible = false;
+		add(hitbox);
+		#end
+	}
+
+	public function removeHitbox() {
+		#if TOUCH_CONTROLS
+		if (hitbox != null)
+		{
+			remove(hitbox);
+			hitbox = FlxDestroyUtil.destroy(hitbox);
+			hitbox = null;
+		}
+
+		if(hboxCam != null)
+		{
+			FlxG.cameras.remove(hboxCam);
+			hboxCam = FlxDestroyUtil.destroy(hboxCam);
+		}
+		#end
+	}
+
+	public function addMobileControls(defaultDrawTarget:Bool = false):Void
+	{
+		#if TOUCH_CONTROLS
+		switch (MobileData.mode)
+		{
+			case 0: // RIGHT_FULL
+				mobileControls = new TouchPad('RIGHT_FULL', 'NONE');
+			case 1: // LEFT_FULL
+				mobileControls = new TouchPad('LEFT_FULL', 'NONE');
+			case 2: // CUSTOM
+				mobileControls = MobileData.getTouchPadCustom(new TouchPad('RIGHT_FULL', 'NONE'));
+			case 3: // HITBOX
+				mobileControls = new Hitbox();
+		}
+
+		mobileControlsCam = new FlxCamera();
+		mobileControlsCam.bgColor.alpha = 0;
+		FlxG.cameras.add(mobileControlsCam, defaultDrawTarget);
+
+		mobileControls.instance.cameras = [mobileControlsCam];
+		mobileControls.instance.visible = false;
+		add(mobileControls.instance);
+		#end
+	}
+
+	public function removeMobileControls()
+	{
+		if (mobileControls != null)
+		{
+			remove(mobileControls.instance);
+			mobileControls.instance = FlxDestroyUtil.destroy(mobileControls.instance);
+			mobileControls = null;
+		}
+
+		if (mobileControlsCam != null)
+		{
+			FlxG.cameras.remove(mobileControlsCam);
+			mobileControlsCam = FlxDestroyUtil.destroy(mobileControlsCam);
+		}
+	}
+	
+	public function addTouchPadCamera(?defaultDrawTarget:Bool = false) {
+		#if TOUCH_CONTROLS
+		if (touchPad != null)
+		{
+			tpadCam = new FlxCamera();
+			tpadCam.bgColor.alpha = 0;
+			FlxG.cameras.add(tpadCam, defaultDrawTarget);
+			touchPad.cameras = [tpadCam];
+		}
+		#end
+	}
+	
 	public function new(scriptsAllowed:Bool = true, ?scriptName:String) {
 		super();
 		this.scriptsAllowed = #if SOFTCODED_STATES scriptsAllowed #else false #end;
@@ -227,6 +353,11 @@ class MusicBeatSubstate extends FlxSubState implements IBeatReceiver
 
 	public override function destroy() {
 		super.destroy();
+		#if TOUCH_CONTROLS
+		removeTouchPad();
+		removeHitbox();
+		removeMobileControls();
+		#end
 		call("destroy");
 		stateScripts = FlxDestroyUtil.destroy(stateScripts);
 	}

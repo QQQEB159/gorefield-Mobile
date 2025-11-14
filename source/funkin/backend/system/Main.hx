@@ -38,9 +38,8 @@ class Main extends Sprite
 	public static var noTerminalColor:Bool = false;
 
 	public static var scaleMode:FunkinRatioScaleMode;
-	#if !mobile
+	
 	public static var framerateSprite:funkin.backend.system.framerate.Framerate;
-	#end
 
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels).
@@ -63,12 +62,26 @@ class Main extends Sprite
 
 		instance = this;
 
+		#if mobile
+		#if android
+		StorageUtil.requestPermissions();
+		#end
+		Sys.setCwd(StorageUtil.getStorageDirectory());
+		#end
+
 		CrashHandler.init();
+
+		#if !web framerateSprite = new funkin.backend.system.framerate.Framerate(); #end
 
 		addChild(game = new FunkinGame(gameWidth, gameHeight, MainState, Options.framerate, Options.framerate, skipSplash, startFullscreen));
 
-		#if (!mobile && !web)
-		addChild(framerateSprite = new funkin.backend.system.framerate.Framerate());
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+
+		#if !web
+		addChild(framerateSprite);
+		#if mobile
+		FlxG.stage.window.onResize.add((w:Int, h:Int) -> framerateSprite.setScale());
+		#end
 		SystemInfo.init();
 		#end
 	}
@@ -129,12 +142,12 @@ class Main extends Sprite
 		#if (sys && TEST_BUILD)
 			trace("Used cne test / cne build. Switching into source assets.");
 			#if MOD_SUPPORT
-				ModsFolder.modsPath = './${pathBack}mods/';
-				ModsFolder.addonsPath = './${pathBack}addons/';
+				ModsFolder.modsPath = Sys.getCwd() + '${pathBack}mods/';
+				ModsFolder.addonsPath = Sys.getCwd() + '${pathBack}addons/';
 			#end
-			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', './${pathBack}assets/', true));
+			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + '${pathBack}assets/', true));
 		#elseif USE_ADAPTED_ASSETS
-			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', './assets/', true));
+			Paths.assetsTree.__defaultLibraries.push(ModsFolder.loadLibraryFromFolder('assets', Sys.getCwd() + 'assets/', true));
 		#end
 
 
@@ -164,6 +177,10 @@ class Main extends Sprite
 		#end
 
 		initTransition();
+		
+		#if mobile
+		LimeSystem.allowScreenTimeout = Options.screenTimeOut;
+		#end
 	}
 
 	public static function refreshAssets() {

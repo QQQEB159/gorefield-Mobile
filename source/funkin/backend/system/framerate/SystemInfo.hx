@@ -3,6 +3,10 @@ package funkin.backend.system.framerate;
 import funkin.backend.utils.native.HiddenProcess;
 import funkin.backend.utils.MemoryUtil;
 import funkin.backend.system.Logs;
+#if android
+import android.os.Build;
+import android.os.Build.VERSION;
+#end
 
 using StringTools;
 
@@ -62,7 +66,7 @@ class SystemInfo extends FramerateCategory {
 			if (process.exitCode() != 0) throw 'Could not fetch CPU information';
 
 			cpuName = process.stdout.readAll().toString().trim().split("\n")[1].trim();
-			#elseif mac
+			#elseif (mac || ios)
 			var process = new HiddenProcess("sysctl -a | grep brand_string"); // Somehow this isnt able to use the args but it still works
 			if (process.exitCode() != 0) throw 'Could not fetch CPU information';
 
@@ -77,6 +81,9 @@ class SystemInfo extends FramerateCategory {
 					break;
 				}
 			}
+			#elseif android
+			cpuName = (VERSION.SDK_INT >= VERSION_CODES.S) ? Build.SOC_MODEL : Build.HARDWARE;
+			#end
 			#end
 		} catch (e) {
 			Logs.trace('Unable to grab CPU Name: $e', ERROR, RED);

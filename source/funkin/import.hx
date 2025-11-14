@@ -13,6 +13,8 @@ import funkin.backend.scripting.EventManager;
 
 import openfl.utils.Assets;
 
+import mobile.funkin.backend.utils.StorageUtil;
+
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.FlxBasic;

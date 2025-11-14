@@ -126,7 +126,7 @@ class DialogueCutscene extends Cutscene {
 		super.update(elapsed);
 		dialogueScript.call("update", [elapsed]);
 
-		if(controls.ACCEPT) {
+		if(controls.ACCEPT #if TOUCH_CONTROLS || mobile.funkin.backend.utils.TouchUtil.justPressed #end) {
 			if(dialogueBox.dialogueEnded) next();
 			else dialogueBox.text.skip();
 		}

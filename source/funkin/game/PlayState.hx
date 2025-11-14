@@ -38,6 +38,8 @@ using StringTools;
 @:access(funkin.game.StrumLine)
 class PlayState extends MusicBeatState
 {
+	public static var qqqeb:Bool = false;
+	
 	/**
 	 * Current PlayState instance.
 	 */
@@ -516,6 +518,8 @@ class PlayState extends MusicBeatState
 
 	@:dox(hide) override public function create()
 	{
+		#if mobile lime.system.System.allowScreenTimeout = false; #end
+		FlxG.mouse.visible = false;
 		Note.__customNoteTypeExists = [];
 		// SCRIPTING & DATA INITIALIZATION
 		#if REGION
@@ -740,6 +744,15 @@ class PlayState extends MusicBeatState
 
 		startingSong = true;
 
+		#if TOUCH_CONTROLS
+		addMobileControls();
+		mobileControls.instance.visible = true;
+		#end
+		#if !android
+		addTouchPad('NONE', 'P');
+		addTouchPadCamera();
+		#end
+		
 		super.create();
 
 		for(s in introSprites)
@@ -937,7 +950,9 @@ class PlayState extends MusicBeatState
 	}
 
 	public override function destroy() {
+		qqqeb = false;
 		scripts.call("destroy");
+		#if mobile lime.system.System.allowScreenTimeout = Options.screenTimeOut; #end
 		for(g in __cachedGraphics)
 			g.useCount--;
 		@:privateAccess
@@ -1032,6 +1047,7 @@ class PlayState extends MusicBeatState
 		}
 
 		super.openSubState(SubState);
+		#if mobile lime.system.System.allowScreenTimeout = Options.screenTimeOut; #end
 	}
 
 	@:dox(hide)
@@ -1055,6 +1071,7 @@ class PlayState extends MusicBeatState
 		}
 
 		super.closeSubState();
+		#if mobile lime.system.System.allowScreenTimeout = false; #end
 	}
 
 	/**
@@ -1217,7 +1234,7 @@ class PlayState extends MusicBeatState
 
 		updateRatingStuff();
 
-		if (controls.PAUSE && startedCountdown && canPause)
+		if ((#if android FlxG.android.justReleased.BACK || #end controls.PAUSE) && startedCountdown && canPause)
 			pauseGame();
 
 		if (canAccessDebugMenus) {
@@ -1419,8 +1436,12 @@ class PlayState extends MusicBeatState
 	 */
 	public function endSong():Void
 	{
+		endingSong = true;
 		scripts.call("onSongEnd");
 		canPause = false;
+		#if TOUCH_CONTROLS
+		if(mobileControls.instance != null) mobileControls.instance.visible = false;
+		#end
 		inst.volume = 0;
 		vocals.volume = 0;
 		for (strumLine in strumLines.members) {
@@ -1460,6 +1481,9 @@ class PlayState extends MusicBeatState
 	 * Immediately switches to the next song, or goes back to the Story/Freeplay menu.
 	 */
 	public function nextSong() {
+		#if TOUCH_CONTROLS
+		if(mobileControls.instance != null) mobileControls.instance.visible = false;
+		#end
 		if (isStoryMode)
 		{
 			campaignScore += songScore;
