@@ -17,10 +17,13 @@ class Compiler {
 	private static function __build(args:Array<String>, arg:Array<String>) {
 		for(a in args)
 			arg.push(a);
-		Sys.command("lime", arg);
+
+		arg = ['run', 'lime'].concat(arg);
+
+		Sys.command("haxelib", arg);
 	}
 
-	private static function getBuildTarget() {
+	public static function getBuildTarget() {
 		return switch(Sys.systemName()) {
 			case "Windows":
 				"windows";
