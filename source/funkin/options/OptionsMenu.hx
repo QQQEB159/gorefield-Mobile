@@ -169,7 +169,6 @@ class OptionsMenu extends TreeMenu {
 					];
 					vpadMap.set(node.getAtt("menuName"), arr);
 					#end
-					}));
 			}
 		}
 
