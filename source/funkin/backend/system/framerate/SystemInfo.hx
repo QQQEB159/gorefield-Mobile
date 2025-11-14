@@ -84,7 +84,6 @@ class SystemInfo extends FramerateCategory {
 			#elseif android
 			cpuName = (VERSION.SDK_INT >= VERSION_CODES.S) ? Build.SOC_MODEL : Build.HARDWARE;
 			#end
-			#end
 		} catch (e) {
 			Logs.trace('Unable to grab CPU Name: $e', ERROR, RED);
 		}
