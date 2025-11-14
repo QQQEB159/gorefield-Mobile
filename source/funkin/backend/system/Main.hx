@@ -20,6 +20,7 @@ import funkin.backend.system.modules.*;
 #if ALLOW_MULTITHREADING
 import sys.thread.Thread;
 #end
+import lime.system.System as LimeSystem;
 #if sys
 import sys.io.File;
 #end
