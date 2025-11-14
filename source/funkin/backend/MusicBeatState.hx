@@ -306,6 +306,9 @@ class MusicBeatState extends FlxState implements IBeatReceiver
 		return event;
 	}
 
+	public static function getState():MusicBeatState
+		return cast (FlxG.state, MusicBeatState);
+	
 	override function update(elapsed:Float)
 	{
 		// TODO: DEBUG MODE!!
