@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraries>
+	<!-- OpenFL & Lime (Required for Flixel) -->
+	<lib name="openfl" version="9.2.2"/>
+	<git name="lime" url="https://github.com/HomuHomu833-haxelibs/lime" ref="int-delta" />
+
+	<!-- Flixel -->
+	<git name="flixel" url="https://github.com/CodenameCrew/cne-flixel" />
+	<git name="flixel-addons" url="https://github.com/CodenameCrew/cne-flixel-addons" />
+
+	<!-- Other Libraries -->
+	<git name="hscript-improved" url="https://github.com/CodenameCrew/hscript-improved" ref="custom-classes" />
+	<git name="discord-rpc" url="https://github.com/Aidan63/linc_discord-rpc" />
+	<git name="flxanimate" url="https://github.com/CodenameCrew/cne-flxanimate" />
+	<lib name="hxvlc" version="1.3.0"/>
+
+	<!-- Documentation and other features -->
+	<lib name="away3d" />
+	<!-- <lib name="dox" /> -->
+	<lib name="format" />
+	<lib name="markdown" />
+	
+	<git name="hxcpp" url="https://github.com/HomuHomu833-haxelibs/hxcpp" />
+</libraries>
