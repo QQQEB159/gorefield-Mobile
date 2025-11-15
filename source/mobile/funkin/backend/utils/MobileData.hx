@@ -27,7 +27,7 @@ import haxe.ds.Map;
 import haxe.Json;
 import haxe.io.Path;
 import openfl.utils.Assets;
-import flixel.util.FlxSave;
+import funkin.savedata.FunkinSave;
 
 /**
  * ...
@@ -40,13 +40,9 @@ class MobileData
 
 	public static var mode(get, set):Int;
 	public static var forcedMode:Null<Int>;
-	public static var save:FlxSave;
 
 	public static function init()
 	{
-		save = new FlxSave();
-		save.bind('MobileControls', #if sys 'YoshiCrafter29/CodenameEngine' #else 'CodenameEngine' #end);
-		
 		for (folder in [
 			'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
 			Paths.getPath('mobile')
@@ -75,38 +71,38 @@ class MobileData
 	
 	public static function setTouchPadCustom(touchPad:TouchPad):Void
 	{
-		if (save.data.buttons == null)
+		if (FunkinSave.save.data.buttons == null)
 		{
-			save.data.buttons = new Array();
+			FunkinSave.save.data.buttons = new Array();
 			for (buttons in touchPad)
-				save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
+				FunkinSave.save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
 		}
 		else
 		{
 			var tempCount:Int = 0;
 			for (buttons in touchPad)
 			{
-				save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+				FunkinSave.save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
 				tempCount++;
 			}
 		}
 
-		save.flush();
+		FunkinSave.save.flush();
 	}
 
 	public static function getTouchPadCustom(touchPad:TouchPad):TouchPad
 	{
 		var tempCount:Int = 0;
 
-		if (save.data.buttons == null)
+		if (FunkinSave.save.data.buttons == null)
 			return touchPad;
 
 		for (buttons in touchPad)
 		{
-			if (save.data.buttons[tempCount] != null)
+			if (FunkinSave.save.data.buttons[tempCount] != null)
 			{
-				buttons.x = save.data.buttons[tempCount].x;
-				buttons.y = save.data.buttons[tempCount].y;
+				buttons.x = FunkinSave.save.data.buttons[tempCount].x;
+				buttons.y = FunkinSave.save.data.buttons[tempCount].y;
 			}
 			tempCount++;
 		}
@@ -116,8 +112,8 @@ class MobileData
 	
 	static function set_mode(mode:Int = 3)
 	{
-		save.data.mobileControlsMode = mode;
-		save.flush();
+		FunkinSave.save.data.mobileControlsMode = mode;
+		FunkinSave.save.flush();
 		return mode;
 	}
 
@@ -126,13 +122,13 @@ class MobileData
 		if (forcedMode != null)
 			return forcedMode;
 
-		if (save.data.mobileControlsMode == null)
+		if (FunkinSave.save.data.mobileControlsMode == null)
 		{
-			save.data.mobileControlsMode = 3;
-			save.flush();
+			FunkinSave.save.data.mobileControlsMode = 3;
+			FunkinSave.save.flush();
 		}
 
-		return save.data.mobileControlsMode;
+		return FunkinSave.save.data.mobileControlsMode;
 	}
 }
 
