@@ -14,6 +14,7 @@ import funkin.options.keybinds.KeybindsOptions;
 import funkin.menus.StoryMenuState;
 import funkin.backend.utils.FunkinParentDisabler;
 import mobile.funkin.backend.system.MobileControlSelectSubState;
+import funkin.backend.system.Controls;
 
 class PauseSubState extends MusicBeatSubstate
 {
