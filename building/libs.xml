@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<libraries>
+<libraries checkVersion="update || all">
+	<if cond="update || all">
+		<print pretty="true">Preparing installation...</print>
 	<!-- OpenFL & Lime (Required for Flixel) -->
 	<lib name="openfl" version="9.2.2"/>
 	<git name="lime" url="https://github.com/HomuHomu833-haxelibs/lime" ref="int-delta" />
@@ -21,4 +23,6 @@
 	<lib name="markdown" />
 	
 	<git name="hxcpp" url="https://github.com/HomuHomu833-haxelibs/hxcpp" />
+	
+	</if>
 </libraries>
