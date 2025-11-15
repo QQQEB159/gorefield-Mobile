@@ -88,6 +88,7 @@ class TreeMenu extends UIState {
 	public function exit() {
 		FlxG.switchState((lastState != null) ? Type.createInstance(lastState, []) : new MainMenuState());
 		lastState = null;
+		FlxG.mouse.visible = false;
 	}
 
 	public function onMenuClose(m:OptionsScreen) {
