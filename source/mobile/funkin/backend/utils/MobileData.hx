@@ -50,8 +50,8 @@ class MobileData
 
 	public static function init()
 	{
-		_save = new FlxSave();
-		_save.bind('MobileControls', #if sys 'YoshiCrafter29/CodenameEngine' #else 'CodenameEngine' #end);
+		if (_save == null) _save = new FlxSave();
+		_save.bind('MobileControls', flixel.FlxG.stage.application.meta.get('company'));
 		_load();
 		
 		if (!__eventAdded) {
