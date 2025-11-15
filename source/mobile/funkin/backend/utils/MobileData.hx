@@ -27,6 +27,7 @@ import haxe.ds.Map;
 import haxe.Json;
 import haxe.io.Path;
 import openfl.utils.Assets;
+import funkin.savedata.FunkinSave;
 
 /**
  * ...
@@ -70,38 +71,38 @@ class MobileData
 	
 	public static function setTouchPadCustom(touchPad:TouchPad):Void
 	{
-		if (FlxG.save.data.buttons == null)
+		if (FunkinSave.save.data.buttons == null)
 		{
-			FlxG.save.data.buttons = new Array();
+			FunkinSave.save.data.buttons = new Array();
 			for (buttons in touchPad)
-				FlxG.save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
+				FunkinSave.save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
 		}
 		else
 		{
 			var tempCount:Int = 0;
 			for (buttons in touchPad)
 			{
-				FlxG.save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+				FunkinSave.save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
 				tempCount++;
 			}
 		}
 
-		FlxG.save.flush();
+		FunkinSave.save.flush();
 	}
 
 	public static function getTouchPadCustom(touchPad:TouchPad):TouchPad
 	{
 		var tempCount:Int = 0;
 
-		if (FlxG.save.data.buttons == null)
+		if (FunkinSave.save.data.buttons == null)
 			return touchPad;
 
 		for (buttons in touchPad)
 		{
-			if (FlxG.save.data.buttons[tempCount] != null)
+			if (FunkinSave.save.data.buttons[tempCount] != null)
 			{
-				buttons.x = FlxG.save.data.buttons[tempCount].x;
-				buttons.y = FlxG.save.data.buttons[tempCount].y;
+				buttons.x = FunkinSave.save.data.buttons[tempCount].x;
+				buttons.y = FunkinSave.save.data.buttons[tempCount].y;
 			}
 			tempCount++;
 		}
@@ -111,8 +112,8 @@ class MobileData
 	
 	static function set_mode(mode:Int = 3)
 	{
-		FlxG.save.data.mobileControlsMode = mode;
-		FlxG.save.flush();
+		FunkinSave.save.data.mobileControlsMode = mode;
+		FunkinSave.save.flush();
 		return mode;
 	}
 
@@ -121,13 +122,13 @@ class MobileData
 		if (forcedMode != null)
 			return forcedMode;
 
-		if (FlxG.save.data.mobileControlsMode == null)
+		if (FunkinSave.save.data.mobileControlsMode == null)
 		{
-			FlxG.save.data.mobileControlsMode = 3;
-			FlxG.save.flush();
+			FunkinSave.save.data.mobileControlsMode = 3;
+			FunkinSave.save.flush();
 		}
 
-		return FlxG.save.data.mobileControlsMode;
+		return FunkinSave.save.data.mobileControlsMode;
 	}
 }
 
