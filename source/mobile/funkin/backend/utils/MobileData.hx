@@ -148,6 +148,7 @@ class MobileData
 
 		return _save.data.mobileControlsMode;
 	}
+	#end
 }
 
 typedef TouchButtonsData =
