@@ -163,7 +163,7 @@ class KeybindsOptions extends MusicBeatSubstate {
 		add(alphabets);
 		add(camFollow);
 		
-		addTouchPad('LEFT_FULL', 'B_J');
+		addTouchPad('NONE', 'B_J');
 		addTouchPadCamera();
 	}
 
