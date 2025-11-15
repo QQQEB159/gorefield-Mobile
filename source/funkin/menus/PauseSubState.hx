@@ -13,6 +13,7 @@ import flixel.util.FlxColor;
 import funkin.options.keybinds.KeybindsOptions;
 import funkin.menus.StoryMenuState;
 import funkin.backend.utils.FunkinParentDisabler;
+import mobile.funkin.backend.system.MobileControlSelectSubState;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -153,9 +154,13 @@ class PauseSubState extends MusicBeatSubstate
 				FlxG.resetState();
 			case "Change Controls":
 				persistentDraw = false;
+				persistentUpdate = false;
 				#if TOUCH_CONTROLS
 				touchPad.active = touchPad.visible = false;
 				#end
+				if(Controls.instance.touchC)
+			    openSubState(new MobileControlSelectSubState());
+			    else
 				openSubState(new KeybindsOptions());
 			case "Change Options":
 				FlxG.switchState(new OptionsMenu());

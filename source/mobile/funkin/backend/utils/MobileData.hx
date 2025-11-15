@@ -46,7 +46,7 @@ class MobileData
 	public static function init()
 	{
 		save = new FlxSave();
-		save.bind('MobileControls');
+	    save.bind('MobileControls', flixel.FlxG.stage.application.meta.get('company'));
 		
 		for (folder in [
 			'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
