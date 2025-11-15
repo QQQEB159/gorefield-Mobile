@@ -31,7 +31,6 @@ import flixel.util.FlxSignal.FlxTypedSignal;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
 import funkin.game.PlayState;
-import funkin.savedata.FunkinSave;
 
 /**
  * ...
