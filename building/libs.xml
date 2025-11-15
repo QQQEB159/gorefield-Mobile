@@ -21,6 +21,7 @@
 	<!-- <lib name="dox" /> -->
 	<lib name="format" />
 	<lib name="markdown" />
+	<lib name="hxp" />
 	
 	<git name="hxcpp" url="https://github.com/HomuHomu833-haxelibs/hxcpp" />
 	
