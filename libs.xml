@@ -12,7 +12,7 @@
 	<git name="hscript-improved" url="https://github.com/CodenameCrew/hscript-improved" ref="custom-classes" />
 	<git name="discord-rpc" url="https://github.com/Aidan63/linc_discord-rpc" />
 	<git name="flxanimate" url="https://github.com/CodenameCrew/cne-flxanimate" />
-	<lib name="hxvlc" version="1.4.0"/>
+	<lib name="hxvlc" version="1.9.3"/>
 
 	<!-- Documentation and other features -->
 	<lib name="away3d" />
