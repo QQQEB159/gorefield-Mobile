@@ -27,12 +27,13 @@ import haxe.ds.Map;
 import haxe.Json;
 import haxe.io.Path;
 import openfl.utils.Assets;
-import funkin.savedata.FunkinSave;
+import flixel.util.FlxSave;
 
 /**
  * ...
  * @author: Karim Akra
  */
+@:build(funkin.backend.system.macros.FunkinSaveMacro.build("_save", "_flush", "_load"))
 class MobileData
 {
 	public static var actionModes:Map<String, TouchButtonsData> = new Map();
@@ -40,9 +41,26 @@ class MobileData
 
 	public static var mode(get, set):Int;
 	public static var forcedMode:Null<Int>;
+	#if REGION
+	@:dox(hide) @:doNotSave
+	private static var __eventAdded = false;
+	@:doNotSave
+	public static var _save:FlxSave;
 
 	public static function init()
 	{
+		_save = new FlxSave();
+		_save.bind('MobileControls', #if sys 'YoshiCrafter29/CodenameEngine' #else 'CodenameEngine' #end);
+		_load();
+		
+		if (!__eventAdded) {
+			Lib.application.onExit.add(function(i:Int) {
+				trace("Saving savedata...");
+				_flush();
+			});
+			__eventAdded = true;
+		}
+		
 		for (folder in [
 			'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
 			Paths.getPath('mobile')
@@ -71,38 +89,38 @@ class MobileData
 	
 	public static function setTouchPadCustom(touchPad:TouchPad):Void
 	{
-		if (FunkinSave.save.data.buttons == null)
+		if (_save.data.buttons == null)
 		{
-			FunkinSave.save.data.buttons = new Array();
+			_save.data.buttons = new Array();
 			for (buttons in touchPad)
-				FunkinSave.save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
+				_save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
 		}
 		else
 		{
 			var tempCount:Int = 0;
 			for (buttons in touchPad)
 			{
-				FunkinSave.save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+				_save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
 				tempCount++;
 			}
 		}
 
-		FunkinSave.save.flush();
+		_flush();
 	}
 
 	public static function getTouchPadCustom(touchPad:TouchPad):TouchPad
 	{
 		var tempCount:Int = 0;
 
-		if (FunkinSave.save.data.buttons == null)
+		if (_save.data.buttons == null)
 			return touchPad;
 
 		for (buttons in touchPad)
 		{
-			if (FunkinSave.save.data.buttons[tempCount] != null)
+			if (_save.data.buttons[tempCount] != null)
 			{
-				buttons.x = FunkinSave.save.data.buttons[tempCount].x;
-				buttons.y = FunkinSave.save.data.buttons[tempCount].y;
+				buttons.x = _save.data.buttons[tempCount].x;
+				buttons.y = _save.data.buttons[tempCount].y;
 			}
 			tempCount++;
 		}
@@ -112,8 +130,8 @@ class MobileData
 	
 	static function set_mode(mode:Int = 3)
 	{
-		FunkinSave.save.data.mobileControlsMode = mode;
-		FunkinSave.save.flush();
+		_save.data.mobileControlsMode = mode;
+		_flush();
 		return mode;
 	}
 
@@ -122,13 +140,13 @@ class MobileData
 		if (forcedMode != null)
 			return forcedMode;
 
-		if (FunkinSave.save.data.mobileControlsMode == null)
+		if (_save.data.mobileControlsMode == null)
 		{
-			FunkinSave.save.data.mobileControlsMode = 3;
-			FunkinSave.save.flush();
+			_save.data.mobileControlsMode = 3;
+			_flush();
 		}
 
-		return FunkinSave.save.data.mobileControlsMode;
+		return _save.data.mobileControlsMode;
 	}
 }
 

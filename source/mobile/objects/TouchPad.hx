@@ -31,7 +31,6 @@ import flixel.util.FlxSignal.FlxTypedSignal;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
 import funkin.game.PlayState;
-import funkin.savedata.FunkinSave;
 
 /**
  * ...
@@ -153,19 +152,19 @@ class TouchPad extends MobileInputManager implements IMobileControls
 	{
 		var int:Int = 0;
 
-		if (FunkinSave.save.data.extraData == null)
-			FunkinSave.save.data.extraData = new Array();
+		if (MobileData._save.data.extraData == null)
+			MobileData._save.data.extraData = new Array();
 
 		for (button in Reflect.fields(this))
 		{
 			var field = Reflect.field(this, button);
 			if (button.toLowerCase().contains('extra') && Std.isOfType(field, TouchButton))
 			{
-				FunkinSave.save.data.extraData[int] = FlxPoint.get(field.x, field.y);
+				MobileData._save.data.extraData[int] = FlxPoint.get(field.x, field.y);
 				++int;
 			}
 		}
-		FunkinSave.save.flush();
+		MobileData._flush();
 	}
 	
 	private function createButton(X:Float, Y:Float, Graphic:String, ?Color:FlxColor = 0xFFFFFF, ?IDs:Array<MobileInputID>):TouchButton
