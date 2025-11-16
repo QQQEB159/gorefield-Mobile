@@ -46,7 +46,9 @@ class MobileData
 	public static function init()
 	{
 		save = new FlxSave();
-	    save.bind('MobileControls', #if sys 'YoshiCrafter29/CodenameEngine' #else 'CodenameEngine' #end);
+	    save.bind('MobileControls', FlxG.stage.application.meta.get('company')
+			+ '/'
+			+ FlxSave.validate(FlxG.stage.application.meta.get('file')));
 		
 		for (folder in [
 			'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',
