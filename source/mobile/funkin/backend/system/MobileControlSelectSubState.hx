@@ -33,6 +33,7 @@ import funkin.backend.MusicBeatSubstate;
 import flixel.text.FlxText;
 import funkin.game.PlayState;
 import mobile.objects.MobileControls;
+import mobile.funkin.backend.utils.MobileData;
 
 class MobileControlSelectSubState extends MusicBeatSubstate
 {
@@ -140,6 +141,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('menu/cancel'));
 			MobileData.forcedMode = null;
+			MobileData.save.flush();
 			close();
 			PlayState.qqqeb = false;
 		});
