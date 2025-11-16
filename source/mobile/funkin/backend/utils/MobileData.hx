@@ -43,6 +43,7 @@ class MobileData
 	public static var forcedMode:Null<Int>;
     public static var save:FlxSave;
 
+	@:access(flixel.util.FlxSave.validate)
 	public static function init()
 	{
 		save = new FlxSave();
