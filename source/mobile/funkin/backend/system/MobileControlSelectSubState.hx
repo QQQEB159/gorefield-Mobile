@@ -116,8 +116,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
 		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
 		{
-			if (options[curOption].toLowerCase().contains('pad'))
-				control.touchPad.setExtrasDefaultPos();
+			//if (options[curOption].toLowerCase().contains('pad'))
+				//control.touchPad.setExtrasDefaultPos();
 			/*if (options[curOption] == 'Pad-Extra')
 			{
 				var nuhuh = new FlxText(0, 0, FlxG.width / 2, 'Pad-Extra Is Just A Binding Option\nPlease Select A Different Option To Exit.');
@@ -285,7 +285,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 				changeControls();
 			case 5:
 				reset.visible = true;
-				changeControls(0, true);
+				changeControls(0);
 				control.touchPad.forEachAlive((button:TouchButton) ->
 				{
 					var ignore = ['G', 'S'];
