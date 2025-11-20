@@ -118,7 +118,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		{
 			if (options[curOption].toLowerCase().contains('pad'))
 				control.touchPad.setExtrasDefaultPos();
-			if (options[curOption] == 'Pad-Extra')
+			/*if (options[curOption] == 'Pad-Extra')
 			{
 				var nuhuh = new FlxText(0, 0, FlxG.width / 2, 'Pad-Extra Is Just A Binding Option\nPlease Select A Different Option To Exit.');
 				nuhuh.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, FlxTextAlign.CENTER);
@@ -134,16 +134,15 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 					}
 				});
 				return;
-			}
+			}*/
 			MobileData.mode = curOption;
 			if (options[curOption] == 'Pad-Custom')
 				MobileData.setTouchPadCustom(control.touchPad);
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('menu/cancel'));
 			MobileData.forcedMode = null;
-			MobileData.save.flush();
 			close();
-			PlayState.qqqeb = false;
+			//PlayState.qqqeb = false;
 		});
 		exit.color = FlxColor.LIME;
 		exit.setGraphicSize(Std.int(exit.width) * 3);
@@ -186,7 +185,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			changeOption(1);
 		});
 
-		if (options[curOption] == 'Pad-Custom' || options[curOption] == 'Pad-Extra')
+		if (options[curOption] == 'Pad-Custom')
 		{
 			if (buttonBinded)
 			{
@@ -253,7 +252,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		super.update(elapsed);
 	}
 
-	function changeControls(?type:Int, ?extraMode:Bool = false)
+	function changeControls(?type:Int)
 	{
 		if (type == null)
 			type = curOption;
@@ -261,7 +260,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			control.destroy();
 		if (members.contains(control))
 			remove(control);
-		control = new MobileControls(type, extraMode);
+		control = new MobileControls(type);
 		add(control);
 		control.cameras = [ui];
 	}
@@ -309,7 +308,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 	function updatePosText()
 	{
 		var optionName = options[curOption];
-		if (optionName == 'Pad-Custom' || optionName == 'Pad-Extra')
+		if (optionName == 'Pad-Custom')
 		{
 			positionText.visible = positionTextBg.visible = true;
 			if (optionName == 'Pad-Custom')
@@ -318,7 +317,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			}
 			else
 			{
-				positionText.text = 'S X: ${control.touchPad.buttonExtra.x} - Y: ${control.touchPad.buttonExtra.y}\n\n\n\nG X: ${control.touchPad.buttonExtra2.x} - Y: ${control.touchPad.buttonExtra2.y}';
+				//positionText.text = 'S X: ${control.touchPad.buttonExtra.x} - Y: ${control.touchPad.buttonExtra.y}\n\n\n\nG X: ${control.touchPad.buttonExtra2.x} - Y: ${control.touchPad.buttonExtra2.y}';
 			}
 			positionText.setPosition(0, (((positionTextBg.height - positionText.height) / 2) + positionTextBg.y));
 		}
@@ -334,8 +333,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 				button.animation.play('press');
 			if (TouchUtil.justPressed)
 			{
-				if (options[curOption] == "Pad-Extra" && control.touchPad != null)
-					control.touchPad.setExtrasDefaultPos();
+				//if (options[curOption] == "Pad-Extra" && control.touchPad != null)
+					//control.touchPad.setExtrasDefaultPos();
 				func();
 			}
 		}

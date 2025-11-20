@@ -43,13 +43,10 @@ class MobileData
 	public static var forcedMode:Null<Int>;
     public static var save:FlxSave;
 
-	@:access(flixel.util.FlxSave.validate)
 	public static function init()
 	{
 		save = new FlxSave();
-	    save.bind('MobileControls', FlxG.stage.application.meta.get('company')
-			+ '/'
-			+ FlxSave.validate(FlxG.stage.application.meta.get('file')));
+		save.bind('MobileControls', #if sys 'YoshiCrafter29/CodenameEngine' #else 'CodenameEngine' #end);
 		
 		for (folder in [
 			'${ModsFolder.modsPath}${ModsFolder.currentModFolder}/mobile',

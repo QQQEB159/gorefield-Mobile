@@ -38,24 +38,24 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager>
 	public var touchPad:TouchPad = new TouchPad('NONE', 'NONE');
 	public var hitbox:Hitbox = new Hitbox();
 
-	public function new(?forceType:Int, ?extra:Bool = true)
+	public function new(?forceType:Int)
 	{
 		super();
 		MobileData.forcedMode = forceType;
 		switch (MobileData.mode)
 		{
 			case 0: // RIGHT_FULL
-				initControler(0, extra);
+				initControler(0);
 			case 1: // LEFT_FULL
-				initControler(1, extra);
+				initControler(1);
 			case 2: // CUSTOM
-				initControler(2, extra);
+				initControler(2);
 			case 3: // HITBOX
-				initControler(3, extra);
+				initControler(3);
 		}
 	}
 
-	private function initControler(controlMode:Int = 0, ?extra:Bool = true):Void
+	private function initControler(controlMode:Int = 0):Void
 	{
 		switch (controlMode)
 		{
