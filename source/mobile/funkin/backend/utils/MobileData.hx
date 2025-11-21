@@ -22,7 +22,6 @@
 
 package mobile.funkin.backend.utils;
 
-#if TOUCH_CONTROLS
 import haxe.ds.Map;
 import haxe.Json;
 import haxe.io.Path;
@@ -150,4 +149,3 @@ typedef ButtonsData =
 	y:Float, // the button's Y position on screen.
 	color:String // the button color, default color is white.
 }
-#end

@@ -22,7 +22,6 @@
 
 package mobile.objects;
 
-#if TOUCH_CONTROLS
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxTileFrames;
@@ -241,4 +240,3 @@ class TouchPad extends MobileInputManager implements IMobileControls
 		return super.set_alpha(Value);
 	}
 }
-#end
