@@ -4,7 +4,7 @@
 		<print pretty="true">Preparing installation...</print>
 	<!-- OpenFL & Lime (Required for Flixel) -->
 	<lib name="openfl" version="9.2.2"/>
-	<git name="lime" url="https://github.com/HomuHomu833-haxelibs/lime" ref="int-delta" />
+	<git name="lime" url="https://github.com/HomuHomu833-haxelibs/lime" />
 
 	<!-- Flixel -->
 	<git name="flixel" url="https://github.com/CodenameCrew/cne-flixel" />
