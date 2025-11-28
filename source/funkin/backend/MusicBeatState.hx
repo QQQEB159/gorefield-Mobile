@@ -116,7 +116,6 @@ class MusicBeatState extends FlxState implements IBeatReceiver
 
 	#if TOUCH_CONTROLS
 	public var touchPad:TouchPad;
-	public var hitbox:Hitbox;
 	public var hboxCam:FlxCamera;
 	public var tpadCam:FlxCamera;
 	public var mobileControls:IMobileControls;
@@ -144,37 +143,6 @@ class MusicBeatState extends FlxState implements IBeatReceiver
 		{
 			FlxG.cameras.remove(tpadCam);
 			tpadCam = FlxDestroyUtil.destroy(tpadCam);
-		}
-		#end
-	}
-
-	public function addHitbox(?defaultDrawTarget:Bool = false) {
-		#if TOUCH_CONTROLS
-		hitbox = new Hitbox();
-
-		hboxCam = new FlxCamera();
-		hboxCam.bgColor.alpha = 0;
-		FlxG.cameras.add(hboxCam, defaultDrawTarget);
-
-		hitbox.cameras = [hboxCam];
-		hitbox.visible = false;
-		add(hitbox);
-		#end
-	}
-
-	public function removeHitbox() {
-		#if TOUCH_CONTROLS
-		if (hitbox != null)
-		{
-			remove(hitbox);
-			hitbox = FlxDestroyUtil.destroy(hitbox);
-			hitbox = null;
-		}
-
-		if(hboxCam != null)
-		{
-			FlxG.cameras.remove(hboxCam);
-			hboxCam = FlxDestroyUtil.destroy(hboxCam);
 		}
 		#end
 	}
@@ -370,7 +338,6 @@ class MusicBeatState extends FlxState implements IBeatReceiver
 		super.destroy();
 		#if TOUCH_CONTROLS
 		removeTouchPad();
-		removeHitbox();
 		removeMobileControls();
 		#end
 		graphicCache.destroy();

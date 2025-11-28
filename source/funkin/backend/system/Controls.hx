@@ -920,9 +920,6 @@ class Controls extends FlxActionSet
 		{
 			if (state.touchPad != null)
 				bools[0] = state.touchPad.buttonJustPressed(id);
-
-			if (state.hitbox != null)
-				bools[1] = state.hitbox.instance.buttonJustPressed(id);
 				
 			if (state.mobileControls != null)
 				bools[1] = state.mobileControls.instance.buttonJustPressed(id);
@@ -932,9 +929,6 @@ class Controls extends FlxActionSet
 		{
 			if (substate.touchPad != null)
 				bools[2] = substate.touchPad.buttonJustPressed(id);
-
-			if (substate.hitbox != null)
-				bools[3] = substate.hitbox.instance.buttonJustPressed(id);
 				
 			if (substate.mobileControls != null)
 				bools[3] = substate.mobileControls.instance.buttonJustPressed(id);
@@ -953,9 +947,6 @@ class Controls extends FlxActionSet
 		{
 			if (state.touchPad != null)
 				bools[0] = state.touchPad.buttonJustReleased(id);
-
-			if (state.hitbox != null)
-				bools[1] = state.hitbox.instance.buttonJustReleased(id);
 				
 			if (state.mobileControls != null)
 				bools[1] = state.mobileControls.instance.buttonJustReleased(id);
@@ -965,9 +956,6 @@ class Controls extends FlxActionSet
 		{
 			if (substate.touchPad != null)
 				bools[2] = substate.touchPad.buttonJustReleased(id);
-
-			if (substate.hitbox != null)
-				bools[3] = substate.hitbox.instance.buttonJustReleased(id);
 				
 			if (substate.mobileControls != null)
 				bools[3] = substate.mobileControls.instance.buttonJustReleased(id);
@@ -986,9 +974,6 @@ class Controls extends FlxActionSet
 		{
 			if (state.touchPad != null)
 				bools[0] = state.touchPad.buttonPressed(id);
-
-			if (state.hitbox != null)
-				bools[1] = state.hitbox.instance.buttonPressed(id);
 				
 			if (state.mobileControls != null)
 				bools[1] = state.mobileControls.instance.buttonPressed(id);
@@ -998,9 +983,6 @@ class Controls extends FlxActionSet
 		{
 			if (substate.touchPad != null)
 				bools[2] = substate.touchPad.buttonPressed(id);
-
-			if (substate.hitbox != null)
-				bools[3] = substate.hitbox.instance.buttonPressed(id);
 				
 			if (substate.mobileControls != null)
 				bools[3] = substate.mobileControls.instance.buttonPressed(id);
@@ -1019,9 +1001,6 @@ class Controls extends FlxActionSet
 		{
 			if (state.touchPad != null)
 				bools[0] = state.touchPad.buttonReleased(id);
-
-			if (state.hitbox != null)
-				bools[1] = state.hitbox.instance.buttonReleased(id);
 				
 			if (state.mobileControls != null)
 				bools[1] = state.mobileControls.instance.buttonReleased(id);
@@ -1031,9 +1010,6 @@ class Controls extends FlxActionSet
 		{
 			if (substate.touchPad != null)
 				bools[2] = substate.touchPad.buttonReleased(id);
-
-			if (substate.hitbox != null)
-				bools[3] = substate.hitbox.instance.buttonReleased(id);
 				
 			if (substate.mobileControls != null)
 				bools[3] = substate.mobileControls.instance.buttonReleased(id);
