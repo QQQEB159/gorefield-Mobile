@@ -210,7 +210,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 						moveButton(TouchUtil.touch, button);
 				});
 			}
-			control.touchPad.forEachAlive((button:TouchButton) ->
+			/*control.touchPad.forEachAlive((button:TouchButton) ->
 			{
 				if (button != bindButton && buttonBinded)
 				{
@@ -249,7 +249,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 						trace('button${bindButton.tag} & button${button.tag} collided');
 					});*/
 				}
-			});
+			});*/
 		}
 
 		tweenieShit += 180 * elapsed;
