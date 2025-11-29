@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
 import funkin.backend.MusicBeatState;
+import mobile.funkin.backend.system.MobileControlSelectSubState;
 import funkin.options.Options;
 import lime.system.System as LimeSystem;
 #if android
@@ -34,6 +35,10 @@ class MobileOptions extends OptionsScreen {
 		actionMode = 'A_B';
 		super("Mobile", 'Change Mobile Related Things such as Controls alpha, screen timeout....', null, 'LEFT_FULL', 'A_B');
 		#if TOUCH_CONTROLS
+		add(new funkin.options.type.TextOption(
+			"Mobile Controls",
+			"Choose which control to play.",
+			openMobileControlsMenu));
 		add(new NumOption(
 			"Hitbox Opacity",
 			"Change how opaque the Hitbox should be",
@@ -119,6 +124,18 @@ class MobileOptions extends OptionsScreen {
 			FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
 		}
 		#end
+	}
+	
+	function openMobileControlsMenu() {
+		if(!canEnter) return;
+		canEnter = false;
+		FlxG.state.persistentUpdate = false;
+		MusicBeatState.instance.tpadCam.visible = false;
+		FlxG.state.openSubState(new MobileControlSelectSubState(() -> {
+			MusicBeatState.instance.tpadCam.visible = true;
+			FlxG.state.persistentUpdate = true;
+			new FlxTimer().start(0.2, (tmr:FlxTimer) -> canEnter = true);
+		}));
 	}
 	
 	#if android

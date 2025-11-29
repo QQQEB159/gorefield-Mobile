@@ -6,7 +6,6 @@ import haxe.xml.Access;
 import funkin.options.type.*;
 import funkin.options.categories.*;
 import funkin.options.TreeMenu;
-import mobile.funkin.backend.system.MobileControlSelectSubState;
 
 class OptionsMenu extends TreeMenu {
 	public static var mainOptions:Array<OptionCategory> = [
@@ -89,19 +88,8 @@ class OptionsMenu extends TreeMenu {
 						main.add(o);
 			}
 		}
-		addTouchPad('UP_DOWN', 'A_B_C');
-		//addTouchPadCamera();
-	}
-
-	public override function update(elapsed:Float) {
-		super.update(elapsed);
-		
-		if (MusicBeatState.getState().touchPad.buttonC.justPressed || FlxG.keys.justPressed.CONTROL && controls.touchC)
-		{
-			openSubState(new MobileControlSelectSubState());
-			persistentUpdate = false;
-			persistentDraw = true;
-		}
+		addTouchPad('UP_DOWN', 'A_B');
+		addTouchPadCamera();
 	}
 	
 	public override function exit() {

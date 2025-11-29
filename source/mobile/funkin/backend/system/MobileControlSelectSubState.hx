@@ -51,10 +51,14 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 	var bindButton:TouchButton;
 	var reset:UIButton;
 	var tweenieShit:Float = 0;
+	var closeCallBack:Void->Void;
 
-	public function new()
+	public function new(?closeCallBack:Void->Void, ?openCallBack:Void->Void)
 	{
 		super();
+		
+		this.closeCallBack = closeCallBack;
+		if(openCallBack != null) openCallBack();
 		
 		//PlayState.qqqeb = true;
 
@@ -141,6 +145,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('menu/cancel'));
 			MobileData.forcedMode = null;
+			if(closeCallBack != null) closeCallBack();
 			close();
 			//PlayState.qqqeb = false;
 		});
