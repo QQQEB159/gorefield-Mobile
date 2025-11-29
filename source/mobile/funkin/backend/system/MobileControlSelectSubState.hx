@@ -332,7 +332,10 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
 	function checkArrowButton(button:FlxSprite, func:Void->Void)
 	{
-		if (TouchUtil.overlaps(button))
+		// OVERLAPS WON'T WORK IDFK WHY
+		for(camera in button.cameras)
+		if (FlxG.mouse.getScreenPosition(camera).x >= button.x && FlxG.mouse.getScreenPosition(camera).x <= button.x + button.width &&
+			FlxG.mouse.getScreenPosition(camera).y >= button.y && FlxG.mouse.getScreenPosition(camera).y <= button.y + button.height)
 		{
 			if (TouchUtil.pressed)
 				button.animation.play('press');
