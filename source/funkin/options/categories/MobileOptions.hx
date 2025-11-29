@@ -130,9 +130,9 @@ class MobileOptions extends OptionsScreen {
 		if(!canEnter) return;
 		canEnter = false;
 		FlxG.state.persistentUpdate = false;
-		MusicBeatState.instance.tpadCam.visible = false;
+		MusicBeatState.getState().tpadCam.visible = false;
 		FlxG.state.openSubState(new MobileControlSelectSubState(() -> {
-			MusicBeatState.instance.tpadCam.visible = true;
+			MusicBeatState.getState().tpadCam.visible = true;
 			FlxG.state.persistentUpdate = true;
 			new FlxTimer().start(0.2, (tmr:FlxTimer) -> canEnter = true);
 		}));
