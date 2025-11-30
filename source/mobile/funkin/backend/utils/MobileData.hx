@@ -114,7 +114,7 @@ class MobileData
 		return touchPad;
 	}
 	
-	static function set_mode(mode:Int = 0)
+	static function set_mode(mode:Int = 3)
 	{
 		save.data.mobileControlsMode = mode;
 		save.flush();
@@ -128,7 +128,7 @@ class MobileData
 
 		if (save.data.mobileControlsMode == null)
 		{
-			save.data.mobileControlsMode = 0;
+			save.data.mobileControlsMode = 3;
 			save.flush();
 		}
 

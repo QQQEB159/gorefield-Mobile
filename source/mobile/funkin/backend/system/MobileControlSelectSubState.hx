@@ -121,10 +121,9 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
 		{
 			MobileData.mode = curOption;
-			if (options[curOption] == 'Pad-Custom')
-				MobileData.setTouchPadCustom(control.touchPad);
+			if (options[curOption] == 'Pad-Custom') MobileData.setTouchPadCustom(control.touchPad);
 			FlxG.mouse.visible = false;
-			FlxG.sound.play(Paths.sound('menu/cancel'));
+			CoolUtil.playMenuSFX(CANCEL);
 			if(closeCallBack != null) closeCallBack();
 			close();
 		});
@@ -142,7 +141,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		reset = new UIButton(exit.x, exit.height + exit.y + 20, "Reset", () ->
 		{
 			changeOption(0); // realods the current control mode ig?
-			FlxG.sound.play(Paths.sound('menu/cancel'));
 		});
 		reset.color = FlxColor.RED;
 		reset.setGraphicSize(Std.int(reset.width) * 3);
@@ -211,7 +209,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
 	function changeOption(change:Int)
 	{
-		FlxG.sound.play(Paths.sound('menu/scroll'));
+		CoolUtil.playMenuSFX();
 		curOption += change;
 
 		if (curOption < 0)
