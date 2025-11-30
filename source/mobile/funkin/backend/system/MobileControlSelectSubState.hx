@@ -210,46 +210,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 						moveButton(TouchUtil.touch, button);
 				});
 			}
-			control.touchPad.forEachAlive((button:TouchButton) ->
-			{
-				if (button != bindButton && buttonBinded)
-				{
-					bindButton.centerBounds();
-					button.bounds.immovable = true;
-					bindButton.bounds.immovable = false;
-					button.centerBounds();
-					FlxG.overlap(bindButton.bounds, button.bounds, function(a:Dynamic, b:Dynamic)
-					{ // these args dosen't work fuck them :/
-						bindButton.centerInBounds();
-						button.centerBounds();
-						bindButton.bounds.immovable = true;
-						button.bounds.immovable = false;
-						// trace('button${bindButton.tag} & button${button.tag} collided');
-					}, function(a:Dynamic, b:Dynamic)
-					{
-						if (!bindButton.bounds.immovable)
-						{
-							if (bindButton.bounds.x > button.bounds.x)
-								bindButton.bounds.x = button.bounds.x + button.bounds.width;
-							else
-								bindButton.bounds.x = button.bounds.x - button.bounds.width;
-
-							if (bindButton.bounds.y > button.bounds.y)
-								bindButton.bounds.y = button.bounds.y + button.bounds.height;
-							else if (bindButton.bounds.y != button.bounds.y)
-								bindButton.bounds.y = button.bounds.y - button.bounds.height;
-						}
-						return true;
-					});
-					/*FlxG.collide(bindButton.bounds, button.bounds, function(a:Dynamic, b:Dynamic) { // these args dosen't work fuck them :/
-						bindButton.centerInBounds();
-						button.centerBounds();
-						bindButton.bounds.immovable = true;
-						button.bounds.immovable = false;
-						trace('button${bindButton.tag} & button${button.tag} collided');
-					});*/
-				}
-			});
 		}
 
 		tweenieShit += 180 * elapsed;
