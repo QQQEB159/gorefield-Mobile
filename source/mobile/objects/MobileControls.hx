@@ -89,7 +89,7 @@ class MobileControls extends FlxTypedSpriteGroup<MobileInputManager>
 			hitbox = FlxDestroyUtil.destroy(hitbox);
 			hitbox = null;
 		}
-		MobileData.forcedMode = null;
+		//MobileData.forcedMode = null;
 	}
 }
 #end

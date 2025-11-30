@@ -120,34 +120,13 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
 		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
 		{
-			//if (options[curOption].toLowerCase().contains('pad'))
-				//control.touchPad.setExtrasDefaultPos();
-			/*if (options[curOption] == 'Pad-Extra')
-			{
-				var nuhuh = new FlxText(0, 0, FlxG.width / 2, 'Pad-Extra Is Just A Binding Option\nPlease Select A Different Option To Exit.');
-				nuhuh.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, FlxTextAlign.CENTER);
-				nuhuh.screenCenter();
-				nuhuh.cameras = [ui];
-				add(nuhuh);
-				FlxTween.tween(nuhuh, {alpha: 0}, 3.4, {
-					ease: FlxEase.circOut,
-					onComplete: (twn:FlxTween) ->
-					{
-						nuhuh.destroy();
-						remove(nuhuh);
-					}
-				});
-				return;
-			}*/
 			MobileData.mode = curOption;
 			if (options[curOption] == 'Pad-Custom')
 				MobileData.setTouchPadCustom(control.touchPad);
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('menu/cancel'));
-			MobileData.forcedMode = null;
 			if(closeCallBack != null) closeCallBack();
 			close();
-			//PlayState.qqqeb = false;
 		});
 		exit.color = FlxColor.LIME;
 		exit.setGraphicSize(Std.int(exit.width) * 3);
@@ -248,15 +227,6 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 			case 2:
 				reset.visible = true;
 				changeControls();
-			case 5:
-				reset.visible = true;
-				changeControls(0);
-				control.touchPad.forEachAlive((button:TouchButton) ->
-				{
-					var ignore = ['G', 'S'];
-					if (!ignore.contains(button.tag.toUpperCase()))
-						button.visible = button.active = false;
-				});
 		}
 		updatePosText();
 		setOptionText();
@@ -276,14 +246,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 		if (optionName == 'Pad-Custom')
 		{
 			positionText.visible = positionTextBg.visible = true;
-			if (optionName == 'Pad-Custom')
-			{
-				positionText.text = 'LEFT X: ${control.touchPad.buttonLeft.x} - Y: ${control.touchPad.buttonLeft.y}\nDOWN X: ${control.touchPad.buttonDown.x} - Y: ${control.touchPad.buttonDown.y}\n\nUP X: ${control.touchPad.buttonUp.x} - Y: ${control.touchPad.buttonUp.y}\nRIGHT X: ${control.touchPad.buttonRight.x} - Y: ${control.touchPad.buttonRight.y}';
-			}
-			else
-			{
-				//positionText.text = 'S X: ${control.touchPad.buttonExtra.x} - Y: ${control.touchPad.buttonExtra.y}\n\n\n\nG X: ${control.touchPad.buttonExtra2.x} - Y: ${control.touchPad.buttonExtra2.y}';
-			}
+			positionText.text = 'LEFT X: ${control.touchPad.buttonLeft.x} - Y: ${control.touchPad.buttonLeft.y}\nDOWN X: ${control.touchPad.buttonDown.x} - Y: ${control.touchPad.buttonDown.y}\n\nUP X: ${control.touchPad.buttonUp.x} - Y: ${control.touchPad.buttonUp.y}\nRIGHT X: ${control.touchPad.buttonRight.x} - Y: ${control.touchPad.buttonRight.y}';
 			positionText.setPosition(0, (((positionTextBg.height - positionText.height) / 2) + positionTextBg.y));
 		}
 		else
