@@ -20,7 +20,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-package mobile.funkin.backend.system;
+package mobile.funkin.substates;
 
 import flixel.FlxObject;
 import flixel.addons.display.FlxBackdrop;
@@ -34,6 +34,8 @@ import flixel.text.FlxText;
 import funkin.game.PlayState;
 import mobile.objects.MobileControls;
 import mobile.funkin.backend.utils.MobileData;
+
+using StringTools;
 
 class MobileControlSelectSubState extends MusicBeatSubstate
 {

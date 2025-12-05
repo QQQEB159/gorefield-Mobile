@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
 import funkin.backend.MusicBeatState;
-import mobile.funkin.backend.system.MobileControlSelectSubState;
+import mobile.funkin.substates.MobileControlSelectSubState;
 import funkin.options.Options;
 import lime.system.System as LimeSystem;
 #if android
