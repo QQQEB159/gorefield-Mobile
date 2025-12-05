@@ -75,38 +75,38 @@ class MobileData
 	
 	public static function setTouchPadCustom(touchPad:TouchPad):Void
 	{
-		if (FlxG.save.data.buttons == null)
+		if (save.data.buttons == null)
 		{
-			FlxG.save.data.buttons = new Array();
+			save.data.buttons = new Array();
 			for (buttons in touchPad)
-				FlxG.save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
+				save.data.buttons.push(FlxPoint.get(buttons.x, buttons.y));
 		}
 		else
 		{
 			var tempCount:Int = 0;
 			for (buttons in touchPad)
 			{
-				FlxG.save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+				save.data.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
 				tempCount++;
 			}
 		}
 
-		FlxG.save.flush();
+		save.flush();
 	}
 
 	public static function getTouchPadCustom(touchPad:TouchPad):TouchPad
 	{
 		var tempCount:Int = 0;
 
-		if (FlxG.save.data.buttons == null)
+		if (save.data.buttons == null)
 			return touchPad;
 
 		for (buttons in touchPad)
 		{
-			if (FlxG.save.data.buttons[tempCount] != null)
+			if (save.data.buttons[tempCount] != null)
 			{
-				buttons.x = FlxG.save.data.buttons[tempCount].x;
-				buttons.y = FlxG.save.data.buttons[tempCount].y;
+				buttons.x = save.data.buttons[tempCount].x;
+				buttons.y = save.data.buttons[tempCount].y;
 			}
 			tempCount++;
 		}
