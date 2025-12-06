@@ -122,8 +122,8 @@ class MobileControlSelectSubState extends MusicBeatSubstate
 
 		var exit = new UIButton(0, itemText.y - 25, "Exit & Save", () ->
 		{
-			MobileData.mode = curOption;
 			if (options[curOption] == 'Pad-Custom') MobileData.setTouchPadCustom(control.touchPad);
+			MobileData.mode = curOption;
 			FlxG.mouse.visible = false;
 			CoolUtil.playMenuSFX(CANCEL);
 			if(closeCallBack != null) closeCallBack();

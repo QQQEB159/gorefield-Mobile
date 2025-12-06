@@ -91,7 +91,7 @@ class MobileData
 			}
 		}
 
-		save.flush();
+		//save.flush();
 	}
 
 	public static function getTouchPadCustom(touchPad:TouchPad):TouchPad
